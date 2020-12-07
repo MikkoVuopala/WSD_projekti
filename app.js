@@ -3,6 +3,7 @@ import { Application } from "./deps.js";
 import { viewEngine, engineFactory, adapterFactory } from "./deps.js";
 import * as middleware from './middlewares/middlewares.js';
 import { router } from './routes/routes.js';
+import { Session } from "./deps.js";
 
 const app = new Application();
 
