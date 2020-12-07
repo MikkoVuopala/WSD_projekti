@@ -6,3 +6,5 @@ const showRegistrationForm = ({render}) => {
     render('registration.ejs');
 }
 
+export { showLoginForm, showRegistrationForm };
+

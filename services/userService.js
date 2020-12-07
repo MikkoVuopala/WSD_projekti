@@ -60,3 +60,5 @@ const postRegistrationForm = async ({request, response}) => {
     response.redirect('/auth/login');
     console.log(response.body);
 }
+
+export { postLoginForm, postRegistrationForm };
