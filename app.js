@@ -11,6 +11,9 @@ const oakAdapter = adapterFactory.getOakAdapter();
 app.use(viewEngine(oakAdapter, ejsEngine, {
     viewRoot: "./views"
 }));
+const session = new Session({ framework: "oak" });
+await session.init();
+app.use(session.use()(session));
 
 app.use(middleware.errorMiddleware);
 
