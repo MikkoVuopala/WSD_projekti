@@ -1,0 +1,14 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password CHAR(60) NOT NULL
+);
+
+CREATE TABLE morningData (
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    sleep_duration INTEGER NOT NULL,
+    sleep_quality INTEGER NOT NULL,
+    generic_mood INTEGER NOT NULL,
+    user_id INTEGER REFERENCES users(id)
+);
