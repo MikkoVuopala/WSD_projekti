@@ -61,4 +61,15 @@ const postRegistrationForm = async ({request, response}) => {
     console.log(response.body);
 }
 
-export { postLoginForm, postRegistrationForm };
+const authenticateUser = async ({session}) => {
+    if (!(await session.get('authenticated'))) {
+        return false;
+    }
+    return true;
+}
+
+const reportCheck = async ({session, response}) => {
+    //check wheter user has already done reports for today.
+}
+
+export { postLoginForm, postRegistrationForm, authenticateUser };
