@@ -78,8 +78,9 @@ const reportCheck = async (uID) => {
         morning: false,
         evening: false
     };
-
+    //tää query ei vielä täysin toimi.
     const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
+    console.log(morningData.rowsOfObjects());
     if (morningData.rowCount > 0) {
         data.morning = true;
     }
