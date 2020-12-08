@@ -9,7 +9,7 @@ const postLoginForm = async ({request, response, session}) => {
     const password = params.get('password');
 
     //check if username exists in the database
-    const res = await executeQuery("SELECT FROM users WHERE email = $1;", email);
+    const res = await executeQuery("SELECT * FROM users WHERE email = $1;", email);
     if (res.rowCount === 0) {
         response.status = 401;
         return;
@@ -32,7 +32,7 @@ const postLoginForm = async ({request, response, session}) => {
         email: usr.email
     });
     response.body = 'Authentication successful!';
-    //response.redirect()
+    response.redirect('/behavior/reporting')
 }
 
 const postRegistrationForm = async ({request, response}) => {
@@ -68,8 +68,26 @@ const authenticateUser = async ({session}) => {
     return true;
 }
 
-const reportCheck = async ({session, response}) => {
+const reportCheck = async (uID) => {
     //check wheter user has already done reports for today.
+    const userId = uID;
+    console.log(userId);
+    const temp = new Date().toISOString().slice(0,10);
+    const today = "'%" + temp + "%'";
+    const data = {
+        morning: false,
+        evening: false
+    };
+
+    const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
+    if (morningData.rowCount > 0) {
+        data.morning = true;
+    }
+    const eveningData = await executeQuery("SELECT * FROM eveningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
+    if (eveningData.rowCount > 0) {
+        data.evening = true;
+    }
+    return data;
 }
 
-export { postLoginForm, postRegistrationForm, authenticateUser };
+export { postLoginForm, postRegistrationForm, authenticateUser, reportCheck };

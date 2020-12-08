@@ -1,5 +1,14 @@
 <%- include("./partials/header.ejs") %>
 <h1>Welcome!</h1>
+<% if (evening && morning) { %>
+    <p>You have already given morning and evening reports today.</p>
+<% } else if (evening) { %>
+    <p>You have already given an evening report today. Reports to give: morning</p>
+<% } else if (morning) { %>
+    <p>You have already given a morning report today. Reports to give: evening</p>
+<% } else { %> 
+    <p>No reports given today.</p>
+<% }%>
 <h4>Give morning reports here:</h4>
 <a href="/behavior/reporting/morning">Morning report</a>
 <h4>Give evening reports here:</h4>

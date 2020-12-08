@@ -1,0 +1,19 @@
+<%- include('./partials/header.ejs') %>
+<h1>Here you can give morning reports!</h1>
+<form method="POST">
+  <fieldset>
+    <label for="day">Date:</label>
+    <input type="date" id="day" name="date"/><br>
+    <label for="sDur">Sleep Duration:</label>
+    <input type="number" id=sDur name="sdur" step=".1"/><br>
+    <label for="sQual">Sleep Quality:</label>
+    <input type="range" min="1" max="5" value="3" id="sQual" name="squal"/><br>
+    <label for="mood">Generic mood:</label>
+    <input type="range" min="1" max="5" value="3" id="mood" name="mood"/><br>
+    <input type="submit" value="Submit"/>
+  </fieldset> 
+</form>
+<br>
+<br>
+<a href="/behavior/reporting">Go Back</a>
+<%- include('./partials/footer.ejs') %>
