@@ -2,11 +2,17 @@
 <h1>Welcome!</h1>
 
 <h2>Register below:</h2>
-
+<!-- <% if (errors && errors.length > 0) { %>
+    <ul>
+        <% errors.forEach((error) => { %>
+            <li><%= error %></li>
+        <% }); %>
+    </ul>
+<% } %> -->
 <form method="POST">
     <fieldset>
         <label for="email">Email: </label>
-        <input type="email" id="email" name="email"/>
+        <input type="email" id="email" name="email" value="<%= email %>"/>
         <label for="pw">Password: </label>
         <input type="password" id="pw" name="password"/>
         <label for="pw2">Password again: </label>

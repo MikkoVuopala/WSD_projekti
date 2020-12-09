@@ -1,5 +1,7 @@
 import { executeQuery } from "../database/database.js";
 import { bcrypt } from "../deps.js";
+import { getData } from "../utils/utils.js";
+import { isEmail, validate, minLength, required } from "../deps.js";
 
 const postLoginForm = async ({request, response, session}) => {
     const body = request.body();
@@ -10,6 +12,7 @@ const postLoginForm = async ({request, response, session}) => {
 
     //check if username exists in the database
     const res = await executeQuery("SELECT * FROM users WHERE email = $1;", email);
+    console.log(res.rowsOfObjects());
     if (res.rowCount === 0) {
         response.status = 401;
         return;
@@ -35,19 +38,30 @@ const postLoginForm = async ({request, response, session}) => {
     response.redirect('/behavior/reporting')
 }
 
-const postRegistrationForm = async ({request, response}) => {
-    const body = request.body();
-    const params = await body.value;
+const postRegistrationForm = async ({request, response, render}) => {
+    // const body = request.body();
+    // const params = await body.value;
     
-    const email = params.get('email');
-    const password = params.get('password');
-    const verification = params.get('verification');
+    // const email = params.get('email');
+    // const password = params.get('password');
+    //const verification = params.get('verification');
 
-    if (password !== verification) {
+    const data = await getData(request);
+    const validationRules = {
+        email: [required, isEmail],
+        password: [required, minLength(4)]
+    }
+    const [passes, errors] = await validate(data, validationRules);
+    if (!passes) {
+        data.errors = errors;
+        render('registration.ejs', data);
+    } else {
+
+    if (data.password !== data.verification) {
         response.body = 'The entered passwords did not match';
         return;
     }
-    const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1", email);
+    const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1", data.email);
     if (existingUsers.rowCount > 0) {
       response.body = 'The email is already reserved.';
       console.log(response.body);
@@ -55,10 +69,11 @@ const postRegistrationForm = async ({request, response}) => {
     }
 
     const hash = await bcrypt.hash(password);
-    await executeQuery("INSERT INTO users (email, password) VALUES ($1, $2);", email, hash);
+    await executeQuery("INSERT INTO users (email, password) VALUES ($1, $2);", data.email, hash);
     response.body = 'Registration successful!';
-    response.redirect('/auth/login');
+    response.redirect('/auth/login');   
     console.log(response.body);
+    }
 }
 
 const authenticateUser = async ({session}) => {
@@ -74,21 +89,33 @@ const reportCheck = async (uID) => {
     console.log(userId);
     const temp = new Date().toISOString().slice(0,10);
     const today = "'%" + temp + "%'";
+    console.log(today);
     const data = {
         morning: false,
         evening: false
     };
-    //tää query ei vielä täysin toimi.
+    // data.morning = true;
+    // console.log(data.morning);
+    
     const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
-    console.log(morningData.rowsOfObjects());
-    if (morningData.rowCount > 0) {
+    // console.log(morningData.rowsOfObjects());
+    // console.log(morningData.rowCount);
+    if (morningData.rowCount !== 0) {
         data.morning = true;
     }
     const eveningData = await executeQuery("SELECT * FROM eveningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
-    if (eveningData.rowCount > 0) {
+    if (eveningData.rowCount !== 0) {
         data.evening = true;
     }
+    console.log(data.morning);
+    console.log(data.evening);
     return data;
 }
 
-export { postLoginForm, postRegistrationForm, authenticateUser, reportCheck };
+const postLogOut = async ({response, session}) => {
+    await session.set('authenticated', false);
+    await session.set('user', null);
+    response.redirect('/');
+}
+
+export { postLoginForm, postRegistrationForm, authenticateUser, reportCheck, postLogOut };

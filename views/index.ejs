@@ -8,10 +8,19 @@
 <!--Summary overview-->
 <h2>Summary overview</h2>
 <!--average mood-->
+<h3>Average mood today: <%= today %></h3>
+<h3>Average mood yesterday: <%= yesterday %></h3>
+<h3><%= mood %></h3>
 
 
 <h4>Already have an account?</h4>
 <a href="/auth/login">Login here!</a>
 <h4>Dont have an account?</h4>
 <a href="/auth/registration">Register here!</a>
+<br>
+<br>
+<br>
+<form method="POST" action="/auth/logout">
+    <input type="submit" value="Logout"/>
+</form>
 <%- include("./partials/footer.ejs") %> 

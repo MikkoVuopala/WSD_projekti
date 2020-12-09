@@ -15,7 +15,7 @@ router.post('/auth/login', userService.postLoginForm);
 router.get('/auth/registration', userController.showRegistrationForm);
 router.post('/auth/registration', userService.postRegistrationForm);
 
-router.post('/auth/logout', );
+router.post('/auth/logout', userService.postLogOut);
 
 router.get('/behavior/reporting', userController.showBehaviorPage);
 router.post('/behavior/reporting', );

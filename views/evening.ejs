@@ -1,6 +1,6 @@
 <%- include('./partials/header.ejs') %>
 <h1>Here you can give evening reports!</h1>
-<form method="POST">
+<form method="POST" action="/behavior/reporting/evening">
   <fieldset>
     <label for="day">Date:</label>
     <input type="date" id="day" name="date"/><br>
@@ -16,6 +16,9 @@
   </fieldset> 
 </form>
 <br>
+<form method="POST" action="/auth/logout">
+  <input type="submit" value="Logout"/>
+</form>
 <br>
 <a href="/behavior/reporting">Go Back</a>
 <%- include('./partials/footer.ejs') %>
