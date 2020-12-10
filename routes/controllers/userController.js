@@ -12,8 +12,10 @@ const showRegistrationForm = async ({render}) => {
 const showBehaviorPage = async ({session, response, render}) => {
     if (authenticateUser) {
         const userId = (await session.get('user')).id
-        //const data = await reportCheck(userId);
-        render('start.ejs', await reportCheck(userId));
+        const data = await reportCheck(userId);
+        const email = (await session.get('user')).email;
+        data.email = email;
+        render('start.ejs', data);
     } else {
         response.status = 401;
     }

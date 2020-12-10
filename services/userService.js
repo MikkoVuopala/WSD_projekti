@@ -68,7 +68,7 @@ const postRegistrationForm = async ({request, response, render}) => {
       return;
     }
 
-    const hash = await bcrypt.hash(password);
+    const hash = await bcrypt.hash(data.password);
     await executeQuery("INSERT INTO users (email, password) VALUES ($1, $2);", data.email, hash);
     response.body = 'Registration successful!';
     response.redirect('/auth/login');   
@@ -86,25 +86,24 @@ const authenticateUser = async ({session}) => {
 const reportCheck = async (uID) => {
     //check wheter user has already done reports for today.
     const userId = uID;
-    console.log(userId);
-    const temp = new Date().toISOString().slice(0,10);
-    const today = "'%" + temp + "%'";
+    const today = new Date().toISOString().slice(0,10);
     console.log(today);
     const data = {
         morning: false,
-        evening: false
+        evening: false,
+        email: ""
     };
     // data.morning = true;
     // console.log(data.morning);
     
-    const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
+    const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND date = $2;", userId, today);
     // console.log(morningData.rowsOfObjects());
     // console.log(morningData.rowCount);
-    if (morningData.rowCount !== 0) {
+    if (morningData.rowCount > 0) {
         data.morning = true;
     }
-    const eveningData = await executeQuery("SELECT * FROM eveningData WHERE user_id = $1 AND CAST(date AS text) LIKE $2;", userId, today);
-    if (eveningData.rowCount !== 0) {
+    const eveningData = await executeQuery("SELECT * FROM eveningData WHERE user_id = $1 AND date = $2;", userId, today);
+    if (eveningData.rowCount > 0) {
         data.evening = true;
     }
     console.log(data.morning);

@@ -1,0 +1,44 @@
+<%- include("./partials/header.ejs") %>
+<h1>Summaries!</h1>
+<p>You are logged in as: <%= email %></p>
+<br>
+<h2>Week <%= week %> averages:</h2>
+<% if (sleep_duration !== null && sports_exer !== null) { %>
+<h4>Sleep duration: <%= sleep_duration %> hours</h4>
+<h4>Sleep quality: <%= sleep_quality %> hours</h4>
+<h4>Sports and exercise: <%= sports_exer %> hours</h4>
+<h4>Studying: <%= studying %> hours</h4>
+<h4>Generic mood: <%= generic_mood %> (scale: 1-5)</h4>
+<% } else { %>
+    <p>There is currently no data available for this week.</p>
+<% } %>
+
+<h5>Want to see averages for another week?</h5>
+<form method="POST" action="/behavior/summary/week">
+    <fieldset>
+        <label for="week">Week: </label>
+        <input type="week" id="week" name="week"/>
+        <input type="submit" value="Change Week"/>
+    </fieldset>
+</form>
+<br>
+<h2>Month <%= month %> averages:</h2>
+<% if (sleep_duration_month !== null && sports_exer_month !== null) { %>
+<h4>Sleep duration: <%= sleep_duration_month %> hours</h4>
+<h4>Sleep quality: <%= sleep_quality_month %> hours</h4>
+<h4>Sports and exercise: <%= sports_exer_month %> hours</h4>
+<h4>Studying: <%= studying_month %> hours</h4>
+<h4>Generic mood: <%= generic_mood_month %> (scale: 1-5)</h4>
+<% } else { %>
+<p>There is currently no data available for this month.</p>
+<% } %>
+
+<h5>Want to see averages for another month?</h5>
+<form method="POST" action="/behavior/summary/month">
+    <fieldset>
+        <label for="month">Month: </label>
+        <input type="month" id="month" name="month"/>
+        <input type="submit" value="Change Month"/>
+    </fieldset>
+</form>
+<%- include("./partials/footer.ejs") %>

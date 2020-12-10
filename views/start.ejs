@@ -1,5 +1,5 @@
 <%- include("./partials/header.ejs") %>
-<h1>Welcome!</h1>
+<h1>Welcome <%= email%>!</h1>
 <% if (evening && morning) { %>
     <p>You have already given morning and evening reports today.</p>
 <% } else if (evening) { %>

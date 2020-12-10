@@ -4,6 +4,7 @@ import * as userService from "../services/userService.js";
 import { showFrontPage } from "./controllers/indexController.js";
 import { showMorningReport, showEveningReport } from "./controllers/reportController.js";
 import { postMorningReport, postEveningReport } from "../services/reportService.js";
+import { changeMonth, changeWeek, showSummaryPage } from "./controllers/summaryController.js";
 
 const router = new Router();
 
@@ -26,7 +27,9 @@ router.post('/behavior/reporting/morning', postMorningReport);
 router.get('/behavior/reporting/evening', showEveningReport);
 router.post('/behavior/reporting/evening', postEveningReport);
 
-router.get('/behavior/summary', );
+router.get('/behavior/summary', showSummaryPage);
+router.post('/behavior/summary/week', changeWeek);
+router.post('/behavior/summary/month', changeMonth);
 
 router.get('/', showFrontPage);
 

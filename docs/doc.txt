@@ -12,7 +12,9 @@ CREATE TABLE morningData (
     sleep_duration NUMERIC(3,1) NOT NULL,
     sleep_quality INTEGER NOT NULL,
     generic_mood INTEGER NOT NULL,
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES users(id),
+    weekNo INTEGER NOT NULL,
+    monthNo INTEGER NOT NULL
 );
 
 CREATE TABLE eveningData (
@@ -21,6 +23,8 @@ CREATE TABLE eveningData (
     sport_exer NUMERIC(3,1) NOT NULL,
     study_duration NUMERIC(3,1) NOT NULL,
     eating INTEGER NOT NULL,
-    generic_mood INTEGER NOT NULL
-    user_id INTEGER REFERENCES users(id)
+    generic_mood INTEGER NOT NULL,
+    user_id INTEGER REFERENCES users(id),
+    weekNo INTEGER NOT NULL,
+    monthNo INTEGER NOT NULL
 );
