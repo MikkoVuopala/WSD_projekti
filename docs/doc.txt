@@ -1,3 +1,5 @@
+Table commands for creating tables
+======
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
@@ -28,3 +30,12 @@ CREATE TABLE eveningData (
     weekNo INTEGER NOT NULL,
     monthNo INTEGER NOT NULL
 );
+
+
+How to use the application
+=======
+
+The application is available currently only locally.
+
+localhost:7777/ shows a landing page, which provides you some helpful information and links to registration and login pages.
+ 

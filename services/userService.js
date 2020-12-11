@@ -39,13 +39,6 @@ const postLoginForm = async ({request, response, session}) => {
 }
 
 const postRegistrationForm = async ({request, response, render}) => {
-    // const body = request.body();
-    // const params = await body.value;
-    
-    // const email = params.get('email');
-    // const password = params.get('password');
-    //const verification = params.get('verification');
-
     const data = await getData(request);
     const validationRules = {
         email: [required, isEmail],
@@ -87,18 +80,15 @@ const reportCheck = async (uID) => {
     //check wheter user has already done reports for today.
     const userId = uID;
     const today = new Date().toISOString().slice(0,10);
-    console.log(today);
+    
     const data = {
         morning: false,
         evening: false,
         email: ""
     };
-    // data.morning = true;
-    // console.log(data.morning);
     
     const morningData = await executeQuery("SELECT * FROM morningData WHERE user_id = $1 AND date = $2;", userId, today);
-    // console.log(morningData.rowsOfObjects());
-    // console.log(morningData.rowCount);
+
     if (morningData.rowCount > 0) {
         data.morning = true;
     }
@@ -106,8 +96,7 @@ const reportCheck = async (uID) => {
     if (eveningData.rowCount > 0) {
         data.evening = true;
     }
-    console.log(data.morning);
-    console.log(data.evening);
+
     return data;
 }
 
