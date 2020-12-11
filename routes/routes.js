@@ -5,6 +5,7 @@ import { showFrontPage } from "./controllers/indexController.js";
 import { showMorningReport, showEveningReport } from "./controllers/reportController.js";
 import { postMorningReport, postEveningReport } from "../services/reportService.js";
 import { changeMonth, changeWeek, showSummaryPage } from "./controllers/summaryController.js";
+import { serveData, ServeDataForOneDay } from "./apis/summaryApi.js";
 
 const router = new Router();
 
@@ -30,6 +31,9 @@ router.post('/behavior/reporting/evening', postEveningReport);
 router.get('/behavior/summary', showSummaryPage);
 router.post('/behavior/summary/week', changeWeek);
 router.post('/behavior/summary/month', changeMonth);
+
+router.get('/api/summary', serveData);
+router.get('/api/summary/:year/:month/:day', ServeDataForOneDay)
 
 router.get('/', showFrontPage);
 
