@@ -116,7 +116,7 @@ const getDataDay = async(params) => {
     const d = params.day;
 
     const date = new Date(y,m-1,d);
-    console.log(date);
+    
 
     const SD = await executeQuery("SELECT AVG(sleep_duration) FROM morningData WHERE date = $1;", date);
     if (SD.rowCount > 0) {

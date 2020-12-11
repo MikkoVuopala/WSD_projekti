@@ -5,7 +5,6 @@ const showSummaryPage = async ({render, session}) => {
     const data = await getAverages(calcWeekNo(new Date()) - 1, new Date().getMonth() + 1);
     const email = (await session.get('user')).email;
     data.email = email;
-    console.log(calcWeekNo(new Date()) - 1);
     render('summary.ejs', data);
 }
 

@@ -12,7 +12,6 @@ const postLoginForm = async ({request, response, session}) => {
 
     //check if username exists in the database
     const res = await executeQuery("SELECT * FROM users WHERE email = $1;", email);
-    console.log(res.rowsOfObjects());
     if (res.rowCount === 0) {
         response.status = 401;
         return;

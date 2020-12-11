@@ -1,5 +1,5 @@
 Table commands for creating tables
-======
+====================================
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
@@ -33,9 +33,31 @@ CREATE TABLE eveningData (
 
 
 How to use the application
-=======
+=============================
 
 The application is available currently only locally.
 
-localhost:7777/ shows a landing page, which provides you some helpful information and links to registration and login pages.
- 
+Setup the database (i.e. ElephantSQL) and replace XXXX sections in config.js with your database credientals.
+  config.database = {
+    hostname: "XXXX",
+    database: "XXXX",
+    user: "XXXX",
+    password: "XXXX",
+    port: 5432
+  } 
+
+After this you can run the application by executing the command below in the root folder of the project.
+    deno run --allow-net --allow-read --allow-env --unstable app.js
+
+Landing page at: localhost:7777/
+
+APIs available under path: /api/summary
+
+Landing page has a link to login and registration pages (/auth/login and /auth/registration).
+Successful login redirects to /behavior/reporting page from where you can report morning and evening reports.
+/behavior/reporting page also provides link to /behavior/summary page where user can see his/hers weekly and monthly averages.
+
+
+
+
+

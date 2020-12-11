@@ -20,7 +20,6 @@ router.post('/auth/registration', userService.postRegistrationForm);
 router.post('/auth/logout', userService.postLogOut);
 
 router.get('/behavior/reporting', userController.showBehaviorPage);
-router.post('/behavior/reporting', );
 
 router.get('/behavior/reporting/morning', showMorningReport);
 router.post('/behavior/reporting/morning', postMorningReport);

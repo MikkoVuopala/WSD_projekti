@@ -4,11 +4,11 @@
 <br>
 <h2>Week <%= week %> averages:</h2>
 <% if (sleep_duration !== null && sports_exer !== null) { %>
-<h4>Sleep duration: <%= sleep_duration %> hours</h4>
-<h4>Sleep quality: <%= sleep_quality %> hours</h4>
-<h4>Sports and exercise: <%= sports_exer %> hours</h4>
-<h4>Studying: <%= studying %> hours</h4>
-<h4>Generic mood: <%= generic_mood %> (scale: 1-5)</h4>
+<h4>Sleep duration: <%= parseFloat(sleep_duration).toFixed(1) %> hours</h4>
+<h4>Sleep quality: <%= parseFloat(sleep_quality).toFixed(1) %> hours</h4>
+<h4>Sports and exercise: <%= parseFloat(sports_exer).toFixed(1) %> hours</h4>
+<h4>Studying: <%= parseFloat(studying).toFixed(1) %> hours</h4>
+<h4>Generic mood: <%= parseFloat(generic_mood).toFixed(1) %> (scale: 1-5)</h4>
 <% } else { %>
     <p>There is currently no data available for this week.</p>
 <% } %>
@@ -24,11 +24,11 @@
 <br>
 <h2>Month <%= month %> averages:</h2>
 <% if (sleep_duration_month !== null && sports_exer_month !== null) { %>
-<h4>Sleep duration: <%= sleep_duration_month %> hours</h4>
-<h4>Sleep quality: <%= sleep_quality_month %> hours</h4>
-<h4>Sports and exercise: <%= sports_exer_month %> hours</h4>
-<h4>Studying: <%= studying_month %> hours</h4>
-<h4>Generic mood: <%= generic_mood_month %> (scale: 1-5)</h4>
+<h4>Sleep duration: <%= parseFloat(sleep_duration_month).toFixed(1) %> hours</h4>
+<h4>Sleep quality: <%= parseFloat(sleep_quality_month).toFixed(1) %> hours</h4>
+<h4>Sports and exercise: <%= parseFloat(sports_exer_month).toFixed(1) %> hours</h4>
+<h4>Studying: <%= parseFloat(studying_month).toFixed(1) %> hours</h4>
+<h4>Generic mood: <%= parseFloat(generic_mood_month).toFixed(1) %> (scale: 1-5)</h4>
 <% } else { %>
 <p>There is currently no data available for this month.</p>
 <% } %>
